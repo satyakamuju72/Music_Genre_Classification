@@ -46,7 +46,7 @@ def predict():
 
 @app.route('/getGenre',methods=['POST'])
 def getGenre():
-    genre_dict = {10:"blues",1:"metal",2:"country",0:"disco",4:"classical",5:"jazz",3:"rock",9:"pop",8:"hiphop",7:"reggae"}
+    genre_dict = {10:"Blues",1:"Metal",2:"Country",0:"Disco",4:"Classical",5:"Jazz",3:"Rock",9:"Pop",8:"Hiphop",7:"Reggae"}
     file = request.files['x']
     uploads_dir =""
     #os.makedirs(uploads_dir)
@@ -55,9 +55,9 @@ def getGenre():
     X_to_predict = mfccs[np.newaxis, ..., np.newaxis]
     model = keras.models.load_model("Music_Genre_10_CNN.h5")
     prediction = model.predict(X_to_predict)
-    # get index with max value
+    #predicts the index of a genre with max value
     predicted_index = np.argmax(prediction, axis=1)
-    genre = genre_dict[ int(predicted_index) ]
+    genre = "The Predicted genre is " + genre_dict[ int(predicted_index) ]
     return render_template("index.html", genre = genre)
 
 if __name__ == "__main__":
